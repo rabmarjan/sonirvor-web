@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>যোগাযোগ - হোম সার্ভিস</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/additional.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .contact-form {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .form-control:focus {
+            border-color: #1877F2;
+            outline: none;
+        }
+        
+        .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 8px 10px;
+        }
+        
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .contact-info {
+            background-color: #1877F2;
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+        }
+        
+        .contact-info h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+        
+        .contact-info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-info-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            color: white;
+        }
+        
+        .contact-info-text h4 {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+        
+        .contact-info-text p {
+            margin: 0.25rem 0 0;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        @media (min-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+        
+        .form-check {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-check input {
+            margin-right: 0.5rem;
+        }
+        
+        .form-message {
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .form-message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .form-message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>হোম সার্ভিস</h1>
+            </div>
+            <div class="mobile-nav-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">হোম</a></li>
+                    <li><a href="services.html">সেবাসমূহ</a></li>
+                    <li><a href="about.html">আমাদের সম্পর্কে</a></li>
+                    <li><a href="contact.html" class="active">যোগাযোগ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>যোগাযোগ করুন</h1>
+            <p>আমাদের সেবা বুক করতে বা যেকোনো প্রশ্নের জন্য যোগাযোগ করুন</p>
+        </div>
+    </section>
+
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-form">
+                    <h2>আমাদের সেবা বুক করুন</h2>
+                    <p>নিচের ফর্মটি পূরণ করুন, আমরা দ্রুত আপনার সাথে যোগাযোগ করব।</p>
+                    
+                    <div class="form-message success" id="form-success">
+                        <i class="fas fa-check-circle"></i> আপনার অনুরোধ সফলভাবে পাঠানো হয়েছে। আমরা শীঘ্রই আপনার সাথে যোগাযোগ করব।
+                    </div>
+                    
+                    <div class="form-message error" id="form-error">
+                        <i class="fas fa-exclamation-circle"></i> দুঃখিত, আপনার অনুরোধ পাঠাতে সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।
+                    </div>
+                    
+                    <form id="booking-form">
+                        <div class="form-group">
+                            <label for="name">আপনার নাম</label>
+                            <input type="text" class="form-control" id="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">মোবাইল নম্বর</label>
+                            <input type="tel" class="form-control" id="phone" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">ইমেইল (ঐচ্ছিক)</label>
+                            <input type="email" class="form-control" id="email">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="address">ঠিকানা</label>
+                            <input type="text" class="form-control" id="address" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="service">সেবা নির্বাচন করুন</label>
+                            <select class="form-select" id="service" required>
+                                <option value="">সেবা নির্বাচন করুন</option>
+                                <option value="plumbing">প্লাম্বার সেবা</option>
+                                <option value="moving">গৃহ স্থানান্তর</option>
+                                <option value="painting">পেইন্টিং সেবা</option>
+                                <option value="labor">সাধারণ শ্রমিক</option>
+                                <option value="tiles">টাইলস লেয়ার</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="date">পছন্দের তারিখ</label>
+                            <input type="date" class="form-control" id="date" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="time">পছন্দের সময়</label>
+                            <select class="form-select" id="time" required>
+                                <option value="">সময় নির্বাচন করুন</option>
+                                <option value="morning">সকাল (৮টা - ১২টা)</option>
+                                <option value="afternoon">দুপুর (১২টা - ৪টা)</option>
+                                <option value="evening">বিকাল (৪টা - ৮টা)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">বিস্তারিত (ঐচ্ছিক)</label>
+                            <textarea class="form-control" id="message" rows="4"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input type="checkbox" id="terms" required>
+                                <label for="terms">আমি <a href="#">শর্তাবলী</a> পড়েছি এবং সম্মত আছি</label>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn">বুকিং সাবমিট করুন</button>
+                    </form>
+                </div>
+                
+                <div class="contact-info">
+                    <h3>যোগাযোগের তথ্য</h3>
+                    
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-info-text">
+                            <h4>ঠিকানা</h4>
+                            <p>১২৩, গুলশান এভিনিউ, ঢাকা, বাংলাদেশ</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contact-info-text">
+                            <h4>ফোন</h4>
+                            <p>+880 1XXXXXXXXX</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-info-text">
+                            <h4>ইমেইল</h4>
+                            <p>info@homeservices.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-info-text">
+                            <h4>কার্যালয় সময়</h4>
+                            <p>সোম - শনি: সকাল ৮টা - রাত ৮টা</p>
+                            <p>রবিবার: সকাল ১০টা - বিকাল ৪টা</p>
+                        </div>
+                    </div>
+                    
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="map-section">
+        <div class="container">
+            <h2>আমাদের অবস্থান</h2>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14602.254272231177!2d90.41279442066881!3d23.79344239359246!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c7a0f7eab089%3A0x3c69d90a57afabaa!2sGulshan%2C%20Dhaka!5e0!3m2!1sen!2sbd!4v1712493447673!5m2!1sen!2sbd" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>হোম সার্ভিস</h3>
+                    <p>আপনার বাড়ি, আমাদের দক্ষতা</p>
+                    <p>আমরা বাংলাদেশের সেরা হোম সার্ভিস প্রদানকারী, যারা আপনার সকল ঘরোয়া সমস্যার সমাধান দিতে প্রতিশ্রুতিবদ্ধ।</p>
+                </div>
+                <div class="footer-section">
+                    <h3>দ্রুত লিঙ্ক</h3>
+                    <ul>
+                        <li><a href="index.html">হোম</a></li>
+                        <li><a href="services.html">সেবাসমূহ</a></li>
+                        <li><a href="about.html">আমাদের সম্পর্কে</a></li>
+                        <li><a href="contact.html">যোগাযোগ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>যোগাযোগ</h3>
+                    <p><i class="fas fa-phone"></i> +880 1XXXXXXXXX</p>
+                    <p><i class="fas fa-envelope"></i> info@homeservices.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> ঢাকা, বাংলাদেশ</p>
+                </div>
+                <div class="footer-section">
+                    <h3>আমাদের অনুসরণ করুন</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 হোম সার্ভিস। সর্বস্বত্ব সংরক্ষিত।
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        document.getElementById('booking-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simulate form submission
+            const formSuccess = document.getElementById('form-success');
+            const formError = document.getElementById('form-error');
+            
+            // Show success message (in a real application, this would happen after successful AJAX submission)
+            formSuccess.style.display = 'block';
+            formError.style.display = 'none';
+            
+            // Reset form
+            this.reset();
+            
+            // Scroll to success message
+            formSuccess.scrollIntoView({ behavior: 'smooth' });
+            
+            // Hide success message after 5 seconds
+            setTimeout(function() {
+                formSuccess.style.display = 'none';
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
